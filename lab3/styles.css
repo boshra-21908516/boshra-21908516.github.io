@@ -1,0 +1,572 @@
+/* القواعد المشتركة بين صفحات Lab3 */
+
+* {
+  box-sizing: border-box; /* أدخل الحدود والمساحة الداخلية في حساب حجم العنصر. */
+}
+
+body {
+  margin: 8px; /* فراغ حول الصفحة. */
+  background-color: #f2f2f2; /* خلفية رمادية فاتحة. */
+  color: #222; /* لون النص الأساسي. */
+  font-family: Arial, sans-serif; /* نوع الخط. */
+}
+
+header {
+  min-height: 120px; /* الحد الأدنى لارتفاع الرأس. */
+  display: flex; /* استخدم Flexbox. */
+  align-items: center; /* وسّط المحتوى عموديًا. */
+  justify-content: center; /* وسّط المحتوى أفقيًا. */
+  background-color: #4caf50; /* خلفية خضراء. */
+  color: #fff; /* نص أبيض. */
+  text-align: center; /* وسّط النص. */
+}
+
+h1 {
+  margin: 0; /* أزل الهامش الافتراضي. */
+  font-size: 32px; /* حجم العنوان. */
+}
+
+nav {
+  min-height: 40px; /* الحد الأدنى لارتفاع القائمة. */
+  display: flex; /* رتّب الروابط باستخدام Flexbox. */
+  flex-wrap: wrap; /* اسمح بنزول الروابط إلى صف آخر. */
+  align-items: center; /* وسّطها عموديًا. */
+  justify-content: center; /* وسّطها أفقيًا. */
+  gap: 8px 24px; /* المسافة بين الصفوف ثم بين الأعمدة. */
+  padding: 8px 12px; /* فراغ داخل القائمة. */
+  background-color: #333; /* خلفية داكنة. */
+}
+
+nav a {
+  color: #fff; /* الروابط بيضاء. */
+  text-decoration: none; /* بدون خط أسفل الروابط. */
+}
+
+nav a[aria-current="page"] {
+  padding: 8px 10px;
+  border-radius: 4px;
+  background-color: #a5d6a7;
+  color: #1b1b1b;
+  font-weight: 700;
+}
+
+.imagens {
+  height: 220px;
+  margin-top: 8px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(0deg, rgb(25 34 38 / 24%), transparent 55%),
+    url("images/Deir_Ez-Zor_Euphrates_9909.jpg");
+  background-position: center 55%;
+  background-size: cover;
+}
+
+main {
+  min-height: 180px; /* الحد الأدنى لارتفاع المحتوى. */
+  margin: 16px 0; /* فراغ أعلى وأسفل المحتوى. */
+  padding: 20px; /* فراغ داخل المحتوى. */
+  background-color: #fff; /* خلفية بيضاء. */
+}
+
+main h2 {
+  margin-top: 0; /* أزل الفراغ فوق عنوان h2. */
+  font-size: 24px; /* حجم العنوان. */
+}
+
+.factos-rapidos {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-left: 4px solid #4caf50;
+  border-radius: 6px;
+  background-color: #f5f7f2;
+}
+
+.factos-rapidos h3 {
+  margin: 0 0 12px;
+}
+
+.factos-rapidos dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.factos-rapidos dl div {
+  padding: 10px;
+  border: 1px solid #e4e8e0;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.factos-rapidos dt {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.factos-rapidos dd {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+main iframe {
+  max-width: 100%; /* لا تجعل الخريطة أو YouTube تتجاوز العرض. */
+  border: 0; /* أزل إطارها. */
+}
+
+footer {
+  min-height: 65px; /* الحد الأدنى لارتفاع التذييل. */
+  display: flex; /* استخدم Flexbox لتوسيط المحتوى. */
+  align-items: center; /* وسّطه عموديًا. */
+  justify-content: center; /* وسّطه أفقيًا. */
+  background-color: #333; /* خلفية داكنة. */
+  color: #eee; /* نص فاتح. */
+  text-align: center; /* وسّط النص. */
+}
+
+footer p {
+  margin: 0; /* أزل هامش الفقرة الافتراضي. */
+}
+
+/* القائمة والرسم العلوي على الهاتف */
+
+@media (width <= 650px) {
+  nav {
+    gap: 8px; /* قلّل المسافات بين الروابط. */
+    padding: 12px; /* فراغ داخل القائمة. */
+  }
+
+  nav a {
+    flex: 1 1 calc(50% - 8px); /* حاول وضع رابطين في الصف. */
+    padding: 10px 6px; /* كبّر مساحة الضغط. */
+    background-color: #444; /* خلفية لكل رابط. */
+    text-align: center; /* وسّط اسم الرابط. */
+  }
+
+  .imagens {
+    height: 180px;
+  }
+
+  main {
+    overflow-x: auto; /* اسمح بالتمرير إذا كان المحتوى عريضًا. */
+  }
+
+  .factos-rapidos dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* صفحة المعلومات: شبكة الصفحة الخارجية */
+
+.pagina-info {
+  display: grid; /* حوّل الصفحة إلى Grid. */
+  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr);
+
+  /* ثلاثة أعمدة بحصص 4 و3 و3. */
+  grid-template-areas:
+    "cab cab cab"
+    "menu menu menu"
+    "faixa faixa faixa"
+    "conteudo conteudo conteudo"
+    "rod rod rod";
+
+  /* حدد مواضع الرأس والقائمة والصور والمحتوى والتذييل. */
+  gap: 12px; /* فراغ بين المناطق. */
+}
+
+.pagina-info > header {
+  grid-area: cab; /* موضع الرأس. */
+}
+
+.pagina-info > nav {
+  grid-area: menu; /* موضع القائمة. */
+}
+
+.pagina-info > .imagens {
+  grid-area: faixa; /* موضع شريط الصور. */
+  margin-top: 0; /* الفراغ توفره Grid. */
+}
+
+.pagina-info > footer {
+  grid-area: rod; /* موضع التذييل. */
+}
+
+/* صفحة المعلومات: شبكة البطاقات داخل main */
+
+.pagina-info main {
+  grid-area: conteudo; /* موضع main في الشبكة الخارجية. */
+  display: grid; /* أنشئ شبكة ثانية للبطاقات. */
+  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr);
+
+  /* أعمدة بحصص 4 و3 و3. */
+  grid-template-areas:
+    "hero central central"
+    "sidebar central central"
+    "recent central central"
+    "galeria galeria extras";
+
+  /* حدد مكان كل بطاقة. */
+  gap: 12px; /* فراغ بين البطاقات. */
+  min-width: 0; /* اسمح للمحتوى بالانكماش. */
+  margin: 0; /* ألغِ هامش main العام. */
+  padding: 0; /* ألغِ مساحته الداخلية العامة. */
+  background-color: transparent; /* أظهر الفراغ بين البطاقات. */
+}
+
+.pagina-info .bloco {
+  min-width: 0; /* لا تسمح للبطاقة بفرض عرض زائد. */
+  padding: 20px; /* فراغ داخل البطاقة. */
+  background-color: #fff; /* خلفية بيضاء. */
+}
+
+.pagina-info .hero-info {
+  grid-area: hero; /* بطاقة المقدمة. */
+}
+
+.pagina-info .conteudo-principal {
+  grid-area: central; /* بطاقة الجدول. */
+  overflow-x: auto; /* اسمح بتمرير الجدول أفقيًا. */
+}
+
+.pagina-info .barra-lateral {
+  grid-area: sidebar; /* بطاقة الملخص. */
+}
+
+.pagina-info .recentes {
+  grid-area: recent; /* بطاقة المواضيع الحديثة. */
+}
+
+.pagina-info .imagens-relacionadas {
+  grid-area: galeria; /* بطاقة الصور المرتبطة. */
+}
+
+.pagina-info .curiosidades {
+  grid-area: extras; /* بطاقة الطرائف. */
+}
+
+/* جدول المعلومات */
+
+.pagina-info table {
+  width: 100%; /* املأ عرض البطاقة. */
+  min-width: 520px; /* احتفظ بعرض كافٍ لقراءة الجدول. */
+  border-collapse: collapse; /* ادمج حدود الخلايا. */
+}
+
+.pagina-info th,
+.pagina-info td {
+  border: 1px solid #777; /* حد حول كل خلية. */
+  padding: 8px; /* فراغ داخل كل خلية. */
+  text-align: left; /* ابدأ النص من اليسار. */
+}
+
+.pagina-info th {
+  color: #3949ab; /* لون عناوين الجدول. */
+}
+
+.pagina-info td {
+  color: #253047; /* لون بيانات الجدول. */
+}
+
+/* معرض صور صفحة المعلومات */
+
+.pagina-info .galeria {
+  display: grid; /* رتّب الصور باستخدام Grid. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  /* ثلاثة أعمدة متساوية. */
+  gap: 12px; /* فراغ بين الصور. */
+}
+
+.pagina-info .galeria img {
+  display: block; /* أزل فراغ الصورة السفلي. */
+  width: 100%; /* املأ عرض الخلية. */
+  aspect-ratio: 4 / 3;
+  object-fit: cover; /* املأ المكان دون تشويه. */
+}
+
+/* صفحة المعلومات على شاشة أضيق */
+
+@media (width <= 760px) {
+  .pagina-info {
+    grid-template-columns: 1fr; /* عمود واحد للصفحة. */
+    grid-template-areas:
+      "cab"
+      "menu"
+      "faixa"
+      "conteudo"
+      "rod";
+  }
+
+  .pagina-info main {
+    grid-template-columns: 1fr; /* عمود واحد للبطاقات. */
+    grid-template-areas:
+      "hero"
+      "central"
+      "sidebar"
+      "recent"
+      "galeria"
+      "extras";
+  }
+
+  .pagina-info .galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    /* عمودان للصور بدل ثلاثة. */
+  }
+}
+
+/* صفحة الموقع: النص والخريطة */
+
+.pagina-localizacao .localizacao-conteudo {
+  display: flex; /* ضع النص والخريطة بجانب بعضهما. */
+  align-items: flex-start; /* ابدأ كليهما من الأعلى. */
+  gap: 24px; /* فراغ بينهما. */
+}
+
+.pagina-localizacao .localizacao-conteudo p {
+  flex: 1 1 40%; /* حصة تقريبية للنص. */
+  margin-top: 0; /* أزل الفراغ فوق الفقرة. */
+}
+
+.pagina-localizacao .localizacao-conteudo iframe {
+  flex: 1 1 60%; /* حصة تقريبية للخريطة. */
+  min-width: 0; /* اسمح للإطار بالانكماش. */
+}
+
+@media (width <= 650px) {
+  .pagina-localizacao .localizacao-conteudo {
+    flex-direction: column; /* ضع الخريطة تحت النص. */
+  }
+
+  .pagina-localizacao .localizacao-conteudo iframe {
+    width: 100%; /* املأ العرض. */
+    height: 360px; /* حدد ارتفاع الخريطة. */
+  }
+}
+
+/* صفحة الوسائط: المقدمة والأقسام */
+
+.pagina-multimedia .multimedia-main {
+  padding: 0; /* مدّ الأقسام إلى حواف main. */
+}
+
+.pagina-multimedia .introducao {
+  padding: 24px; /* فراغ داخل المقدمة. */
+  background-color: #fff; /* خلفية بيضاء. */
+}
+
+.pagina-multimedia .atalhos {
+  display: flex; /* رتّب روابط الانتقال في صف. */
+  flex-wrap: wrap; /* اسمح بنزولها إلى صف جديد. */
+  gap: 16px; /* فراغ بينها. */
+}
+
+.pagina-multimedia .secao {
+  min-height: 100vh; /* كل قسم بطول الشاشة على الأقل. */
+  display: flex; /* استخدم Flexbox. */
+  flex-direction: column; /* ضع العناصر فوق بعضها. */
+  justify-content: center; /* وسّط المحتوى عموديًا. */
+  padding: 40px; /* فراغ داخل القسم. */
+}
+
+/* الصورة الرئيسية في بداية صفحة الوسائط */
+
+.pagina-multimedia .destaque {
+  position: relative; /* احسب موضع العنوان داخل هذا القسم. */
+  display: block; /* لا تستخدم Flexbox هنا. */
+  padding: 0; /* اترك الصورة تصل إلى الحواف. */
+  background-color: #222; /* خلفية احتياطية. */
+}
+
+.pagina-multimedia .arte-destaque {
+  position: absolute;
+  inset: 0;
+  width: 100%; /* املأ العرض. */
+  height: 100vh; /* املأ ارتفاع الشاشة. */
+  background-image:
+    linear-gradient(0deg, rgb(20 31 37 / 65%), transparent 65%),
+    url("images/Deir_Ez-Zor_suspension_bridge9903.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.pagina-multimedia .destaque h3 {
+  position: absolute; /* ضع العنوان فوق الصورة. */
+  bottom: 8%; /* ابعده عن الأسفل. */
+  left: 5%; /* ابعده عن اليسار. */
+  max-width: 90%; /* امنع تجاوزه عرض الصورة. */
+  margin: 0; /* أزل هامشه الافتراضي. */
+  color: #fff; /* نص أبيض. */
+  font-size: 5vw; /* حجم مرتبط بعرض الشاشة. */
+  text-shadow: 2px 2px 8px #222; /* ظل يساعد على القراءة. */
+}
+
+/* Imagem histórica no destaque de Deir ez-Zor */
+
+.pagina-multimedia .secao-video-fundo {
+  position: relative; /* اجعل موضع الفيديو مرتبطًا بهذا القسم. */
+  overflow: hidden; /* أخفِ ما يتجاوز حوافه. */
+  background:
+    linear-gradient(rgb(26 36 40 / 42%), rgb(26 36 40 / 42%)),
+    url("images/Deir_ez_zor.jpg") center / cover;
+  color: #fff; /* لون النص أبيض. */
+}
+
+.pagina-multimedia .video-conteudo {
+  position: relative; /* أظهر لوحة النص فوق الفيديو. */
+  z-index: 1; /* ضع اللوحة أمام الفيديو. */
+  width: min(600px, 100%); /* عرض لا يتجاوز 600 بكسل أو عرض القسم. */
+  margin: auto; /* وسّط اللوحة داخل القسم. */
+  padding: 30px; /* فراغ داخل اللوحة. */
+  background-color: rgb(0 0 0 / 60%); /* خلفية سوداء شفافة. */
+  color: #fff; /* نص أبيض. */
+  pointer-events: none; /* لا تمنع اللوحة الضغط على الفيديو. */
+}
+
+/* الصور الصغيرة */
+
+.pagina-multimedia .secao-fotografias {
+  background-color: #f3ebdb; /* خلفية بيج فاتحة. */
+}
+
+.pagina-multimedia .fotografias {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.pagina-multimedia .fotografias figure {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #dfd4c1;
+  border-radius: 14px;
+  background: #fffdf8;
+  box-shadow: 0 8px 22px rgb(72 54 35 / 12%);
+}
+
+.pagina-multimedia .fotografias img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover; /* املأ مساحة الصورة دون تشويه. */
+  transition: transform 250ms ease; /* حركة تكبير سلسة. */
+}
+
+.pagina-multimedia .fotografias figcaption {
+  padding: 12px 14px;
+  color: #493c32;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pagina-multimedia .fotografias img:hover {
+  transform: scale(1.035);
+}
+
+/* فيديو YouTube العادي */
+
+.pagina-multimedia .secao-video {
+  background-color: #e6edf7; /* خلفية زرقاء فاتحة. */
+}
+
+.pagina-multimedia .video {
+  width: 100%; /* استعمل العرض المتاح. */
+  max-width: 900px; /* لا تتجاوز 900 بكسل. */
+  aspect-ratio: 16 / 9; /* احتفظ بشكل الفيديو العريض. */
+  height: auto; /* دع الارتفاع يتبع العرض. */
+}
+
+/* صورة parallax */
+
+.pagina-multimedia .secao-parallax {
+  align-items: center; /* وسّط العنوان أفقيًا. */
+  color: #fff; /* نص أبيض. */
+  text-align: center; /* وسّط النص. */
+  background-image:
+    linear-gradient(rgb(20 31 37 / 52%), rgb(20 31 37 / 52%)),
+    url("images/EuphratesDeirEzZour.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed; /* ثبّت الخلفية أثناء تمرير الصفحة. */
+}
+
+.pagina-multimedia .creditos-imagens {
+  max-width: 1040px;
+  margin: 28px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid #c9bba4;
+  color: #493c32;
+  font-size: 0.9rem;
+}
+
+.pagina-multimedia .creditos-imagens summary {
+  width: fit-content;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.pagina-multimedia .creditos-imagens p {
+  margin-bottom: 8px;
+}
+
+.pagina-multimedia .creditos-imagens ul {
+  columns: 2;
+  column-gap: 32px;
+  padding-left: 22px;
+}
+
+.pagina-multimedia .creditos-imagens li {
+  break-inside: avoid;
+  margin: 7px 0;
+}
+
+/* القصيدة */
+
+.pagina-multimedia .secao-poema {
+  background-color: #edf2e8; /* خلفية خضراء فاتحة. */
+}
+
+.pagina-multimedia .poema {
+  padding: 10px; /* فراغ حول القصيدة. */
+}
+
+.pagina-multimedia .poema p {
+  margin: 5px 0; /* فراغ بين سطور القصيدة. */
+}
+
+.pagina-multimedia .poema p:nth-child(even) {
+  color: #3949ab; /* لون السطور الزوجية. */
+  font-style: italic; /* خط مائل لها. */
+}
+
+/* صفحة الوسائط على الهاتف */
+
+@media (width <= 650px) {
+  .pagina-multimedia .secao {
+    padding: 24px; /* قلّل الفراغ داخل الأقسام. */
+  }
+
+  .pagina-multimedia .destaque h3 {
+    font-size: 8vw; /* عدّل حجم عنوان الصورة. */
+  }
+
+  .pagina-multimedia .secao-parallax {
+    background-attachment: scroll;
+
+    /* حرّك الصورة مع الصفحة بدل تثبيتها على الهاتف. */
+  }
+
+}
+
+@media (width <= 760px) {
+  .pagina-multimedia .fotografias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .pagina-multimedia .creditos-imagens ul {
+    columns: 1;
+  }
+}
