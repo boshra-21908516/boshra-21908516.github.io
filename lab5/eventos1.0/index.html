@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab5 - Eventos 1.0</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Eventos 1.0</h1>
+      <p>Interfaces Web</p>
+    </header>
+
+    <main>
+      <ol>
+        <li>
+          <span id="passa" onmouseover="passou()" onmouseout="saiu()"
+            >Passa por aqui!</span
+          >
+        </li>
+
+        <li id="linha2">
+          Pinta-me!
+          <button type="button" onclick="pintar('red')">Red</button>
+          <button type="button" onclick="pintar('green')">Green</button>
+          <button type="button" onclick="pintar('blue')">Blue</button>
+        </li>
+
+        <li>
+          <label for="texto">Experimenta escrever...</label>
+          <input type="text" id="texto" onkeydown="mudarCor()" />
+        </li>
+
+        <li>
+          <label for="cor">Escolha uma cor em inglês:</label>
+          <input type="text" id="cor" />
+          <button type="button" onclick="mudarFundo()">submeter</button>
+        </li>
+
+        <li>
+          <button type="button" onclick="contar()">Conta!</button>
+          <span id="contador">0</span>
+        </li>
+      </ol>
+    </main>
+
+    <footer>
+      <p>DIW - Eventos com JavaScript</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

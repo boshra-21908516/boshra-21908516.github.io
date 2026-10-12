@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab5 - Eventos 2.0</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="scripts/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Eventos 2.0</h1>
+      <p>Interfaces Web</p>
+    </header>
+
+    <main>
+      <ol>
+        <li><span id="passa">Passa por aqui!</span></li>
+
+        <li id="linha-cor">
+          Dá-me cor!
+          <div>
+            <button type="button" class="color" data-color="orange">
+              Orange
+            </button>
+            <button type="button" class="color" data-color="purple">
+              Purple
+            </button>
+            <button type="button" class="color" data-color="teal">Teal</button>
+          </div>
+        </li>
+
+        <li>
+          <label for="texto">Experimenta escrever...</label>
+          <div>
+            <input type="text" id="texto" />
+          </div>
+        </li>
+
+        <li>
+          <label for="cor">Escolha uma cor:</label>
+          <select id="cor">
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+          </select>
+        </li>
+
+        <li>
+          <button type="button" id="conta">Conta!</button>
+          <span id="contador">0</span>
+        </li>
+
+        <li>
+          <form id="formulario">
+            <input
+              type="text"
+              id="nome"
+              placeholder="Insira o seu nome"
+              aria-label="Nome"
+            />
+            <input
+              type="number"
+              id="idade"
+              placeholder="Insira a sua idade"
+              aria-label="Idade"
+            />
+            <button type="submit">Submit</button>
+          </form>
+          <p id="ola"></p>
+        </li>
+
+        <li>Automatic Counter: <span id="automatico">0</span></li>
+
+        <li>
+          Contador guardado: <span id="guardado">0</span>
+          <div>
+            <button type="button" id="incrementar">Incrementar</button>
+            <button type="button" id="decrementar">Decrementar</button>
+            <button type="button" id="reset">Reset</button>
+          </div>
+        </li>
+
+        <li>
+          <label for="direcao">Direção das bolas:</label>
+          <select id="direcao">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+          <div id="caixa-flex">
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+          </div>
+        </li>
+      </ol>
+    </main>
+
+    <footer>
+      <p>DIW - Eventos com JavaScript</p>
+    </footer>
+  </body>
+</html>
