@@ -1,4 +1,3 @@
-
 "use strict";
 
 // A. Declaração de variáveis
@@ -12,9 +11,7 @@ const nodeUlColecao = document.querySelector("#colecao ul");
 const nodeTotalCromos = document.querySelector("#colecao h3 span");
 
 const nodeUlRepetidos = document.querySelector("#repetidos ul");
-const nodeTotalRepetidos = document.querySelector(
-  "#repetidos h3 span",
-);
+const nodeTotalRepetidos = document.querySelector("#repetidos h3 span");
 
 const colecao = JSON.parse(localStorage.getItem("colecao")) || [];
 const repetidos = JSON.parse(localStorage.getItem("repetidos")) || [];
