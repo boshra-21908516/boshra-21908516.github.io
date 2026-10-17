@@ -1,58 +1,68 @@
+
 "use strict";
 
-// A. declaração de variáveis
+// A. Declaração de variáveis
 const nodeForm = document.querySelector("#colecao + section form");
+
 const nodeInputNumero = document.querySelector(
   "#colecao + section input[type='number']",
 );
-const nodeInputSubmit = document.querySelector(
-  "#colecao + section input[type='submit']",
-);
+
 const nodeUlColecao = document.querySelector("#colecao ul");
 const nodeTotalCromos = document.querySelector("#colecao h3 span");
+
 const nodeUlRepetidos = document.querySelector("#repetidos ul");
-const nodeTotalRepetidos = document.querySelector("#repetidos h3 span");
+const nodeTotalRepetidos = document.querySelector(
+  "#repetidos h3 span",
+);
+
 const colecao = JSON.parse(localStorage.getItem("colecao")) || [];
 const repetidos = JSON.parse(localStorage.getItem("repetidos")) || [];
-let contadorRepetidos = repetidos.length;
 
-// B. event handlers
+// B. Funções
+
 function guardaCarta() {
   const numero = Number(nodeInputNumero.value);
+
+  if (!Number.isInteger(numero) || numero < 1) {
+    return;
+  }
 
   if (colecao.includes(numero)) {
     repetidos.push(numero);
     repetidos.sort((a, b) => a - b);
-    contadorRepetidos += 1;
-    guardaDados();
-    atualizaLista(repetidos, nodeUlRepetidos);
-    nodeTotalRepetidos.textContent = contadorRepetidos;
-    associaEventosEliminacao();
   } else {
     colecao.push(numero);
     colecao.sort((a, b) => a - b);
-    guardaDados();
-    atualizaLista(colecao, nodeUlColecao);
-    nodeTotalCromos.textContent = colecao.length;
   }
+
+  guardaDados();
+  atualizaInterface();
 
   nodeInputNumero.value = "";
   nodeInputNumero.focus();
 }
 
-function atualizaLista(lista, nodeUlColecao) {
-  nodeUlColecao.textContent = "";
+function atualizaLista(lista, nodeUl, permitirEliminacao = false) {
+  nodeUl.textContent = "";
 
   lista.forEach((numero) => {
     const nodeLi = document.createElement("li");
 
-    if (lista === repetidos) {
-      nodeLi.innerHTML = `${numero} <button type="button" data-numero="${numero}">Eliminar</button>`;
+    if (permitirEliminacao) {
+      nodeLi.append(document.createTextNode(`${numero} `));
+
+      const nodeBotao = document.createElement("button");
+      nodeBotao.type = "button";
+      nodeBotao.textContent = "Eliminar";
+      nodeBotao.dataset.numero = numero;
+
+      nodeLi.append(nodeBotao);
     } else {
       nodeLi.textContent = numero;
     }
 
-    nodeUlColecao.append(nodeLi);
+    nodeUl.append(nodeLi);
   });
 }
 
@@ -61,32 +71,39 @@ function guardaDados() {
   localStorage.setItem("repetidos", JSON.stringify(repetidos));
 }
 
-// C. event listeners
-function associaEventosEliminacao() {
-  const nodeBotoesEliminar = document.querySelectorAll("#repetidos button");
+function atualizaInterface() {
+  atualizaLista(colecao, nodeUlColecao);
+  atualizaLista(repetidos, nodeUlRepetidos, true);
 
-  nodeBotoesEliminar.forEach((botao) => {
-    botao.addEventListener("click", () => {
-      const numero = Number(botao.dataset.numero);
-      const indice = repetidos.indexOf(numero);
-
-      repetidos.splice(indice, 1);
-      contadorRepetidos -= 1;
-      guardaDados();
-      atualizaLista(repetidos, nodeUlRepetidos);
-      nodeTotalRepetidos.textContent = contadorRepetidos;
-      associaEventosEliminacao();
-    });
-  });
+  nodeTotalCromos.textContent = colecao.length;
+  nodeTotalRepetidos.textContent = repetidos.length;
 }
 
-nodeForm.onsubmit = (event) => {
+// C. Event listeners
+
+nodeForm.addEventListener("submit", (event) => {
   event.preventDefault();
   guardaCarta();
-};
+});
 
-atualizaLista(colecao, nodeUlColecao);
-nodeTotalCromos.textContent = colecao.length;
-atualizaLista(repetidos, nodeUlRepetidos);
-nodeTotalRepetidos.textContent = contadorRepetidos;
-associaEventosEliminacao();
+nodeUlRepetidos.addEventListener("click", (event) => {
+  if (event.target.tagName !== "BUTTON") {
+    return;
+  }
+
+  const numero = Number(event.target.dataset.numero);
+  const indice = repetidos.indexOf(numero);
+
+  if (indice === -1) {
+    return;
+  }
+
+  repetidos.splice(indice, 1);
+
+  guardaDados();
+  atualizaInterface();
+});
+
+// D. Inicialização
+
+atualizaInterface();
