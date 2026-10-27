@@ -1,3 +1,4 @@
+/* global produtos */
 // A. Estado e Variáveis
 
 // Estado da aplicação
