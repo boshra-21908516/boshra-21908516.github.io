@@ -100,15 +100,6 @@ section + section {
   margin-top: 4.5rem;
 }
 
-#produtos > h2 {
-  margin: 0 0 1.25rem;
-  color: #111;
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-align: center;
-  text-shadow: 0 1px 2px rgb(255 255 255 / 60%);
-}
-
 .filtros {
   display: flex;
   flex-wrap: wrap;
@@ -202,6 +193,15 @@ article p {
   border: 1px solid #e7e0d6;
   border-radius: 0.5rem;
   background: #fff;
+}
+
+#produtos > h2 {
+  margin: 0 0 1.25rem;
+  color: #111;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 1px 2px rgb(255 255 255 / 60%);
 }
 
 #cesto h2 {
