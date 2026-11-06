@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Amigos - Métodos HTTP</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .painel {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border: 1px solid #e7e0d6;
+        border-radius: 0.5rem;
+        background: #fff;
+      }
+
+      .painel h2 {
+        margin-top: 0;
+        color: #46284f;
+      }
+
+      form {
+        display: grid;
+        gap: 0.75rem;
+        max-width: 420px;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      input {
+        padding: 0.55rem 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        font: inherit;
+      }
+
+      #lista-amigos {
+        padding: 0;
+        list-style: none;
+      }
+
+      #lista-amigos li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e7e0d6;
+      }
+
+      #lista-amigos button {
+        width: auto;
+        margin: 0;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .resultado {
+        margin-top: 0.75rem;
+        color: #46284f;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>API Amigos</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Loja</a></li>
+          <li><a href="amigos.html">Amigos</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 1. GET /amigos/ e DELETE /amigos/{id}/ -->
+      <section class="painel">
+        <h2>Lista de Amigos (GET &amp; DELETE)</h2>
+        <ul id="lista-amigos"></ul>
+      </section>
+
+      <!-- 2. GET /amigos/{id}/ -->
+      <section class="painel">
+        <h2>Procurar Amigo por ID (GET)</h2>
+        <form id="form-get-amigo">
+          <label>
+            ID do Amigo:
+            <input type="number" id="get-id" min="1" required />
+          </label>
+          <button type="submit">Obter Amigo</button>
+        </form>
+        <p id="resultado-get" class="resultado"></p>
+      </section>
+
+      <!-- 3. POST /amigos/ -->
+      <section class="painel">
+        <h2>Criar Novo Amigo (POST)</h2>
+        <form id="form-post-amigo">
+          <label>
+            Nome:
+            <input type="text" id="post-nome" required />
+          </label>
+          <label>
+            Idade:
+            <input type="number" id="post-idade" min="1" required />
+          </label>
+          <button type="submit">Criar Amigo</button>
+        </form>
+      </section>
+
+      <!-- 4. PUT /amigos/{id}/ -->
+      <section class="painel">
+        <h2>Atualizar Amigo Completo (PUT)</h2>
+        <form id="form-put-amigo">
+          <label>
+            ID do Amigo:
+            <input type="number" id="put-id" min="1" required />
+          </label>
+          <label>
+            Novo Nome:
+            <input type="text" id="put-nome" required />
+          </label>
+          <label>
+            Nova Idade:
+            <input type="number" id="put-idade" min="1" required />
+          </label>
+          <button type="submit">Atualizar (PUT)</button>
+        </form>
+      </section>
+
+      <!-- 5. PATCH /amigos/{id}/ -->
+      <section class="painel">
+        <h2>Atualizar Parcialmente Amigo (PATCH)</h2>
+        <form id="form-patch-amigo">
+          <label>
+            ID do Amigo:
+            <input type="number" id="patch-id" min="1" required />
+          </label>
+          <label>
+            Novo Nome (opcional):
+            <input type="text" id="patch-nome" />
+          </label>
+          <label>
+            Nova Idade (opcional):
+            <input type="number" id="patch-idade" min="1" />
+          </label>
+          <button type="submit">Atualizar (PATCH)</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>© 2026 Boshra</footer>
+
+    <script>
+      const API_URL = "https://amigos.pw.deisi.ulusofona.pt/amigos/";
+
+      const listaAmigos = document.querySelector("#lista-amigos");
+      const resultadoGet = document.querySelector("#resultado-get");
+
+      // 1. GET - Listar todos os amigos
+      function carregarAmigos() {
+        fetch(API_URL)
+          .then((response) => response.json())
+          .then((amigos) => {
+            listaAmigos.innerHTML = "";
+
+            amigos.forEach((amigo) => {
+              const li = document.createElement("li");
+              const info = document.createElement("span");
+              const botaoApagar = document.createElement("button");
+
+              info.textContent = `#${amigo.id} - ${amigo.nome} (${amigo.idade} anos)`;
+              botaoApagar.textContent = "Apagar";
+
+              botaoApagar.addEventListener("click", () => {
+                apagarAmigo(amigo.id);
+              });
+
+              li.append(info, botaoApagar);
+              listaAmigos.append(li);
+            });
+          })
+          .catch((error) => console.error("Erro ao carregar amigos:", error));
+      }
+
+      // 2. GET por ID - Obter um amigo específico
+      document
+        .querySelector("#form-get-amigo")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const id = document.querySelector("#get-id").value;
+
+          fetch(`${API_URL}${id}/`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Amigo não encontrado");
+              }
+              return response.json();
+            })
+            .then((amigo) => {
+              resultadoGet.textContent = `Encontrado: #${amigo.id} - ${amigo.nome}, ${amigo.idade} anos`;
+            })
+            .catch((error) => {
+              resultadoGet.textContent = `Erro: ${error.message}`;
+            });
+        });
+
+      // 3. POST - Criar um novo amigo
+      document
+        .querySelector("#form-post-amigo")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const nome = document.querySelector("#post-nome").value;
+          const idade = Number(document.querySelector("#post-idade").value);
+
+          fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nome, idade }),
+          })
+            .then((response) => response.json())
+            .then(() => {
+              event.target.reset();
+              carregarAmigos();
+            })
+            .catch((error) => console.error("Erro ao criar amigo:", error));
+        });
+
+      // 4. PUT - Atualizar um amigo por completo
+      document
+        .querySelector("#form-put-amigo")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const id = document.querySelector("#put-id").value;
+          const nome = document.querySelector("#put-nome").value;
+          const idade = Number(document.querySelector("#put-idade").value);
+
+          fetch(`${API_URL}${id}/`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nome, idade }),
+          })
+            .then((response) => response.json())
+            .then(() => {
+              event.target.reset();
+              carregarAmigos();
+            })
+            .catch((error) =>
+              console.error("Erro ao atualizar amigo (PUT):", error),
+            );
+        });
+
+      // 5. PATCH - Atualizar parcialmente um amigo
+      document
+        .querySelector("#form-patch-amigo")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const id = document.querySelector("#patch-id").value;
+          const nome = document.querySelector("#patch-nome").value.trim();
+          const idadeValor = document.querySelector("#patch-idade").value;
+
+          const dados = {};
+          if (nome) dados.nome = nome;
+          if (idadeValor) dados.idade = Number(idadeValor);
+
+          fetch(`${API_URL}${id}/`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dados),
+          })
+            .then((response) => response.json())
+            .then(() => {
+              event.target.reset();
+              carregarAmigos();
+            })
+            .catch((error) =>
+              console.error("Erro ao atualizar amigo (PATCH):", error),
+            );
+        });
+
+      // 6. DELETE - Apagar um amigo
+      function apagarAmigo(id) {
+        fetch(`${API_URL}${id}/`, {
+          method: "DELETE",
+        })
+          .then(() => {
+            carregarAmigos();
+          })
+          .catch((error) => console.error("Erro ao apagar amigo:", error));
+      }
+
+      // Inicializar a lista ao abrir a página
+      carregarAmigos();
+    </script>
+  </body>
+</html>
